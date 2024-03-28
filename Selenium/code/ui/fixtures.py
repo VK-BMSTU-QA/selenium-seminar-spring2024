@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.chrome.service import Service
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
 
@@ -16,8 +17,8 @@ def driver(config):
     options = Options()
     if selenoid:
         capabilities = {
-            'browserName': 'chrome',
-            'version': '118.0',
+            'browserName': 'firefox',
+            'version': '104.0',
         }
         if vnc:
             capabilities['enableVNC'] = True
@@ -27,7 +28,9 @@ def driver(config):
             desired_capabilities=capabilities
         )
     elif browser == 'chrome':
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        service = Service(executable_path=ChromeDriverManager().install())
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Chrome(service=service, options=options)
     elif browser == 'firefox':
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     else:
