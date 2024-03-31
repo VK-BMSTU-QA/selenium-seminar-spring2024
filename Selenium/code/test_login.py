@@ -66,8 +66,15 @@ class LoginPage(BasePage):
 
     def login(self, user, password):
         self.click(self.login_locators.LOGIN_BUTTON)
-        self.find(self.login_locators.LOGIN).send_keys(user)
-        self.find(self.login_locators.PASSWORD).send_keys(password)
+
+        login = self.find(self.login_locators.LOGIN)
+        login.clear()
+        login.send_keys(user)
+
+        passwd = self.find(self.login_locators.PASSWORD)
+        passwd.clear()
+        passwd.send_keys(password)
+
         self.click(self.login_locators.SUBMIT)
         return MainPage(self.driver)
 
@@ -124,7 +131,6 @@ class TestLogin(BaseCase):
 
 
 class TestMainPage(BaseCase):
-    @pytest.mark.skip('skip')
     def test_main_page(self):
         self.main_page.go_to_menu_items('Блоги', 'Люди')
         assert 'Сообщество проекта' in self.driver.page_source
@@ -136,7 +142,6 @@ class TestMainPage(BaseCase):
 
 class TestLK(BaseCase):
 
-    # @pytest.mark.skip('skip')
     def test_updating_profile_info(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
@@ -151,7 +156,6 @@ class TestLK(BaseCase):
         assert old in self.driver.page_source
         assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
 
-    # @pytest.mark.skip('skip')
     def test_updating_last_name(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
