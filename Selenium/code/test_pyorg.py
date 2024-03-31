@@ -135,6 +135,13 @@ class TestFailed(BaseCase):
         assert 0
 
 
+    @pytest.mark.skip('skip')
+    @allure.step("Step 1")
+    def test_log(self):
+        events_page = self.main_page.go_to_events_page()
+        assert 1 == 0
+
+
 @pytest.mark.skip('skip')
 def test_check_all_drivers(all_drivers):
     time.sleep(3)
