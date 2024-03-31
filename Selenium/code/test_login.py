@@ -3,7 +3,7 @@ import time
 import pytest
 from _pytest.fixtures import FixtureRequest
 
-from ui.locators.park_locators import LoginPageLocators
+from ui.locators.park_locators import LoginPageLocators, HeaderLocators
 from ui.pages.base_page import BasePage
 
 
@@ -48,6 +48,14 @@ class LoginPage(BasePage):
 class MainPage(BasePage):
     url = 'https://park.vk.company/feed/'
 
+    def switch_sections(self, section_locator1, section_locator2):
+        self.go_to_section(section_locator1)
+        self.go_to_section(section_locator2)
+
+    def go_to_section(self, section_locator):
+        self.find(section_locator).click()
+        time.sleep(3)
+
 
 class TestLogin(BaseCase):
     authorize = True
@@ -63,14 +71,28 @@ class TestLogin(BaseCase):
 
 class TestLK(BaseCase):
 
-    @pytest.mark.skip('skip')
-    def test_lk1(self):
-        pass
+    def test_switch_blogs_to_people(self):
+        self.main_page.go_to_section(HeaderLocators.BLOGS_LOCATOR)
+        assert 'Все блоги' in self.driver.page_source
+        assert 'Прямой эфир' in self.driver.page_source
+
+        self.main_page.go_to_section(HeaderLocators.PEOPLE_LOCATOR)
+        assert 'Сообщество проекта' in self.driver.page_source
+        assert 'Статистика' in self.driver.page_source
+        assert 'Фильтры' in self.driver.page_source
+
+    def test_switch_program_to_graduates(self):
+        self.main_page.go_to_section(HeaderLocators.PROGRAM_LOCATOR)
+        assert 'Мои учебные программы' in self.driver.page_source
+        assert 'Основные программы' in self.driver.page_source
+        assert 'Открытые курсы' in self.driver.page_source
+        assert 'Архив видео' in self.driver.page_source
+
+        self.main_page.go_to_section(HeaderLocators.GRADUATES_LOCATOR)
+        assert 'Наши выпускники' in self.driver.page_source
+        assert 'Осень 2023' in self.driver.page_source
+        assert 'Весна 2023' in self.driver.page_source
 
     @pytest.mark.skip('skip')
     def test_lk2(self):
-        pass
-
-    @pytest.mark.skip('skip')
-    def test_lk3(self):
         pass
