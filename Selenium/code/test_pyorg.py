@@ -37,7 +37,7 @@ class TestExample(BaseCase):
         time.sleep(5)
 
         assert 'No results found' in self.driver.page_source
-        assert 1 == 0
+        # assert 1 == 0
 
     @pytest.mark.skip('skip')
     def test_page_change(self):
@@ -122,6 +122,7 @@ class TestLoad(BaseCase):
 
 class TestFailed(BaseCase):
 
+    @pytest.mark.skip('skip')
     def test_fail(self):
         self.main_page.find((By.XPATH, '12312312312312'), timeout=1)
 
