@@ -123,7 +123,7 @@ class TestProfileSettings(BaseCase):
 
         about = self.main_page.find(self.main_page.locators.PROFILE_ABOUT)
         ActionChains(self.driver).move_to_element(about).perform()
-        about.send_keys('\nTelegram: @1234\nWeChat: @i_am_not_use_wechat')
+        about.send_keys('Это тестовое описание')
 
         self.main_page.click(self.main_page.locators.SETTINGS_SUBMIT_BUTTON)
         success_msg = self.main_page.find(self.main_page.locators.SETTINGS_SUCCESS_CHANGE_MSG)
