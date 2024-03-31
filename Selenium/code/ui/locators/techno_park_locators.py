@@ -1,19 +1,19 @@
 from selenium.webdriver.common.by import By
 
 class LoginLocators:
-    DIV_LOGIN_LOCATOR = (By.CLASS_NAME, 'nav__button__menu')
-    LOGIN_INPUT_LOCATOR = (By.NAME, 'login')
-    PASSWORD_INPUT_LOCATOR = (By.NAME, 'password')
-    INPUT_BUTTON_IN_LOGIN_LOCATOR = (By.ID, 'popup-login-form-submit')
+    LOGIN_BUTTON = (By.CLASS_NAME, 'nav__button__menu')
+    LOGIN_INPUT = (By.NAME, 'login')
+    PASSWORD_INPUT = (By.NAME, 'password')
+    SUBMIT_LOGIN_BUTTON = (By.ID, 'popup-login-form-submit')
 
 class MainLocators:
-    BLOG_LOCATOR = (By.XPATH, '//a[contains(@href,"/blog/")]')
-    PEOPLE_LOCATOR = (By.XPATH, '//a[contains(@href,"/people/")]')
-    PROGRAM_LOCATOR = (By.XPATH, '//a[contains(@href,"/curriculum/program/")]')
-    ALUMNI_LOCATOR = (By.XPATH, '//a[contains(@href,"/alumni/")]')
-    SCHEDULE_LOCATOR = (By.XPATH, '//a[contains(@href,"/schedule/")]')
-    CAREER_LOCATOR = (By.XPATH, '//a[contains(@href,"/career/")]')
+    BLOG_BUTTON = (By.XPATH, '//a[contains(@href,"/blog/")]')
+    PEOPLE_BUTTON = (By.XPATH, '//a[contains(@href,"/people/")]')
+    PROGRAM_BUTTON = (By.XPATH, '//a[contains(@href,"/curriculum/program/")]')
+    ALUMNI_BUTTON = (By.XPATH, '//a[contains(@href,"/alumni/")]')
+    SCHEDULE_BUTTON = (By.XPATH, '//a[contains(@href,"/schedule/")]')
+    CAREER_BUTTON = (By.XPATH, '//a[contains(@href,"/career/")]')
 
 class SettingsLocators:
-    ABOUT_INPUT_LOCATOR = (By.NAME, 'about')
-    SUBMIT_EDIT_LOCATOR = (By.NAME, 'submit_profile_edit')
+    ABOUT_INPUT = (By.NAME, 'about')
+    SUBMIT_EDIT = (By.NAME, 'submit_profile_edit')

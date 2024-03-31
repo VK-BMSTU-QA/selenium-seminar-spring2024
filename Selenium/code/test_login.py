@@ -40,17 +40,17 @@ class LoginPage(BasePage):
     locators = tp_locators.LoginLocators()
     
     def login(self, credentials: Credentials):
-        self.click(self.locators.DIV_LOGIN_LOCATOR, timeout=5)
+        self.click(self.locators.LOGIN_BUTTON, timeout=5)
 
-        login_input = self.find(self.locators.LOGIN_INPUT_LOCATOR, timeout=5)
+        login_input = self.find(self.locators.LOGIN_INPUT, timeout=5)
         login_input.clear()
         login_input.send_keys(credentials.login)
 
-        password_input = self.find(self.locators.PASSWORD_INPUT_LOCATOR, timeout=5)
+        password_input = self.find(self.locators.PASSWORD_INPUT, timeout=5)
         password_input.clear()
         password_input.send_keys(credentials.password)
 
-        self.click(self.locators.INPUT_BUTTON_IN_LOGIN_LOCATOR, timeout=5)
+        self.click(self.locators.SUBMIT_LOGIN_BUTTON, timeout=5)
 
         self.mainPage = MainPage(self.driver)
 
@@ -81,22 +81,22 @@ class TestLK(LoggedCase):
         'locator,sign_expected',
         [
             pytest.param(
-                tp_locators.MainLocators.BLOG_LOCATOR, 'Все блоги'
+                tp_locators.MainLocators.BLOG_BUTTON, 'Все блоги'
             ),
             pytest.param(
-                tp_locators.MainLocators.PEOPLE_LOCATOR, 'Сообщество проекта'
+                tp_locators.MainLocators.PEOPLE_BUTTON, 'Сообщество проекта'
             ),
             pytest.param(
-                tp_locators.MainLocators.PROGRAM_LOCATOR, 'Основные программы'
+                tp_locators.MainLocators.PROGRAM_BUTTON, 'Основные программы'
             ),
             pytest.param(
-                tp_locators.MainLocators.ALUMNI_LOCATOR, 'Наши выпускники'
+                tp_locators.MainLocators.ALUMNI_BUTTON, 'Наши выпускники'
             ),
             pytest.param(
-                tp_locators.MainLocators.SCHEDULE_LOCATOR, 'Дисциплина'
+                tp_locators.MainLocators.SCHEDULE_BUTTON, 'Дисциплина'
             ),
             pytest.param(
-                tp_locators.MainLocators.CAREER_LOCATOR, 'Вакансии'
+                tp_locators.MainLocators.CAREER_BUTTON, 'Вакансии'
             ),
         ],
     )
@@ -108,11 +108,11 @@ class TestLK(LoggedCase):
         'locators,signs_expected',
         [
             pytest.param(
-                [tp_locators.MainLocators.BLOG_LOCATOR, tp_locators.MainLocators.PEOPLE_LOCATOR],
+                [tp_locators.MainLocators.BLOG_BUTTON, tp_locators.MainLocators.PEOPLE_BUTTON],
                   ['Все блоги', 'Сообщество проекта']
             ),
             pytest.param(
-                [tp_locators.MainLocators.ALUMNI_LOCATOR, tp_locators.MainLocators.CAREER_LOCATOR],
+                [tp_locators.MainLocators.ALUMNI_BUTTON, tp_locators.MainLocators.CAREER_BUTTON],
                   ['Наши выпускники', 'Вакансии']
             ),
         ],
@@ -136,19 +136,19 @@ class TestLK(LoggedCase):
     def test_settings_change_about(self, about_info, sign_expected):
         settings_page = SettingsPage(self.driver)
 
-        about_input = settings_page.find(settings_page.locators.ABOUT_INPUT_LOCATOR)
+        about_input = settings_page.find(settings_page.locators.ABOUT_INPUT)
         original_text = about_input.text
         about_input.clear()
         about_input.send_keys(about_info)
-        settings_page.click(settings_page.locators.SUBMIT_EDIT_LOCATOR, timeout=5)
+        settings_page.click(settings_page.locators.SUBMIT_EDIT, timeout=5)
 
         assert original_text not in self.driver.page_source
         assert sign_expected in self.driver.page_source
 
-        about_input = settings_page.find(settings_page.locators.ABOUT_INPUT_LOCATOR)
+        about_input = settings_page.find(settings_page.locators.ABOUT_INPUT)
         about_input.clear()
         about_input.send_keys(original_text)
-        settings_page.click(settings_page.locators.SUBMIT_EDIT_LOCATOR, timeout=5)
+        settings_page.click(settings_page.locators.SUBMIT_EDIT, timeout=5)
 
         assert original_text in self.driver.page_source
         assert sign_expected not in self.driver.page_source
