@@ -20,3 +20,32 @@ class MainPageLocators(BasePageLocators):
 
 class EventsPageLocators(BasePageLocators):
     pass
+
+
+class BaseParkPageLocators:
+    LOGIN_BUTTON = (By.CSS_SELECTOR, '#header .nav__button__menu')
+    LOGIN_INPUT = (By.NAME, 'login')
+    PASSWORD_INPUT = (By.NAME, 'password')
+    LOGIN_SUBMIT_BUTTON = (By.ID, 'popup-login-form-submit')
+    LOGO_IMG = (By.CSS_SELECTOR, '#header img')
+
+class MainParkPageLocators(BaseParkPageLocators):
+    BLOGS_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/blog/"]')
+    BLOGS_CONTENT_TITLE = (By.XPATH, '//*[@id="content"]//h2')
+
+    PEOPLE_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/people/"]')
+    PEOPLE_CONTENT_TITLE = (By.XPATH, '//*[@id="content"]//h2')
+
+    PROGRAM_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/curriculum/program/"]')
+
+    ALUMNI_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/alumni/"]')
+    ALUMNI_CONTENT_TITLE = (By.XPATH, '//*[@id="content"]//h1')
+
+    MAIN_PROGRAMS_TITLE = (By.XPATH, '//*[@id="content"]//a[@href="/curriculum/program/main/"]')
+
+    USER_DROPDOWN = (By.ID, 'dropdown-user-trigger')
+    USER_MENU_SETTINGS_BUTTON = (By.XPATH, '//*[@id="dropdown-user-menu"]//li[@class="item-settings"]')
+    PROFILE_ABOUT = (By.ID, 'profile_about')
+
+    SETTINGS_SUBMIT_BUTTON = (By.NAME, 'submit_profile_edit')
+    SETTINGS_SUCCESS_CHANGE_MSG = (By.XPATH, '//*[@id="content"]//div[@class="profile_settings_success-msg"]')
