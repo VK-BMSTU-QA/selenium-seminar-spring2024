@@ -1,5 +1,6 @@
 import json
 import time
+import random
 
 import pytest
 from _pytest.fixtures import FixtureRequest
@@ -89,6 +90,15 @@ class LKPage(BasePage):
         about.send_keys(info)
         self.click(self.lk_page_locators.SUBMIT)
 
+    def update_last_name(self, last_name):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+        time.sleep(2)
+
+        last_name_en = self.find(self.lk_page_locators.LAST_NAME_EN)
+        last_name_en.clear()
+        last_name_en.send_keys(last_name)
+        self.click(self.lk_page_locators.SUBMIT)
+
 
 class TestLogin(BaseCase):
     authorize = True
@@ -107,15 +117,22 @@ class TestLK(BaseCase):
     def test_lk1(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
-        info = 'selenium seminar'
+        info = 'selenium seminar ' + str(random.randint(1, 100))
         self.lk_page.update_info(info)
         time.sleep(2)
         assert info in self.driver.page_source
         assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
 
-    @pytest.mark.skip('skip')
+    # @pytest.mark.skip('skip')
     def test_lk2(self):
-        pass
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+
+        last_name = 'selenium' + str(random.randint(1, 100))
+        self.lk_page.update_last_name(last_name)
+        time.sleep(2)
+
+        assert last_name in self.driver.page_source
+        assert 'Вы успешно отредактировали поле: Фамилия [eng]' in self.driver.page_source
 
     @pytest.mark.skip('skip')
     def test_lk3(self):
