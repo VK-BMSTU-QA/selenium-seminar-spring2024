@@ -1,22 +1,23 @@
 from selenium.webdriver.common.by import By
 
 
-class BasePageLocators:
-    QUERY_LOCATOR = (By.NAME, 'q')
-    QUERY_LOCATOR_ID = (By.ID, 'id-search-field')
-    GO_BUTTON_LOCATOR = (By.XPATH, '//*[@id="submit"]')
-    START_SHELL = (By.ID, 'start-shell')
-    PYTHON_CONSOLE = (By.ID, 'hterm:row-nodes')
+class LoginPageLocators:
+    LOGIN_BUTTON = (By.CLASS_NAME, "nav__button__menu")
+    LOGIN_INPUT = (By.NAME, "login")
+    PASSWORD_INPUT = (By.NAME, "password")
+    FINAL_LOGIN_BUTTON = (By.NAME, "submit_login")
+    BAD_DATA_MESSAGE = (By.CLASS_NAME, "error-message")
 
 
-class MainPageLocators(BasePageLocators):
-    COMPREHENSIONS = (
-        By.XPATH,
-        '//code/span[@class="comment" and contains(text(), "comprehensions")]'
-    )
-    EVENTS = (By.ID, 'events')
-    READ_MORE = (By.CSS_SELECTOR, 'a.readmore')
+class SectionLocators:
+    BLOGS = (By.LINK_TEXT, "Блоги")
+    PEOPLE = (By.LINK_TEXT, "Люди")
+    PROGRAM = (By.LINK_TEXT, "Программа")
 
 
-class EventsPageLocators(BasePageLocators):
-    pass
+class SettingsLocators:
+    ABOUT_ME_INPUT = (By.ID, 'profile_about')
+    SAVE_BUTTON = (By.NAME, 'submit_profile_edit')
+
+
+

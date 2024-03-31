@@ -2,7 +2,6 @@ import time
 
 import allure
 from selenium.webdriver.remote.webelement import WebElement
-from ui.locators import basic_locators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -12,10 +11,6 @@ class PageNotOpenedExeption(Exception):
 
 
 class BasePage(object):
-
-    locators = basic_locators.BasePageLocators()
-    locators_main = basic_locators.MainPageLocators()
-    url = 'https://www.python.org/'
 
     def is_opened(self, timeout=15):
         started = time.time()
