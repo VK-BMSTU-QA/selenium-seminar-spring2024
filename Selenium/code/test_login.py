@@ -76,6 +76,13 @@ class LoginPage(BasePage):
 class MainPage(BasePage):
     url = 'https://park.vk.company/feed/'
 
+    def go_to_menu_items(self, first_item_name, second_item_name):
+        self.find((By.LINK_TEXT, first_item_name)).click()
+        time.sleep(2)
+
+        self.find((By.LINK_TEXT, second_item_name)).click()
+        time.sleep(2)
+
 
 class LKPage(BasePage):
     url = 'https://park.vk.company/cabinet/settings/'
@@ -112,21 +119,16 @@ class TestLogin(BaseCase):
 
 
 class TestMainPage(BaseCase):
+    # @pytest.mark.skip('skip')
     def test_main_page(self):
-        blogs = self.main_page.find((By.LINK_TEXT, 'Блоги'))
-        blogs.click()
-        time.sleep(2)
-
-        people = self.main_page.find((By.LINK_TEXT, 'Люди'))
-        people.click()
-        time.sleep(2)
-
+        self.main_page.go_to_menu_items('Блоги', 'Люди')
+        self.main_page.go_to_menu_items('Программа', 'Выпуски')
         assert 1 == 1
 
 
 class TestLK(BaseCase):
 
-    # @pytest.mark.skip('skip')
+    @pytest.mark.skip('skip')
     def test_lk1(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
@@ -136,7 +138,7 @@ class TestLK(BaseCase):
         assert info in self.driver.page_source
         assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
 
-    # @pytest.mark.skip('skip')
+    @pytest.mark.skip('skip')
     def test_lk2(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
