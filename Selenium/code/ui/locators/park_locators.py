@@ -5,7 +5,7 @@ class LoginPageLocators:
     LOGIN_BUTTON = (By.LINK_TEXT, 'Войти')
     LOGIN_BUTTON_VK = (By.CLASS_NAME, 'social-link')
     LOGIN = (By.CLASS_NAME, 'vkuiInput__el')
-    CONTINUE_BUTTON = (By.CLASS_NAME, 'vkuiButton__in')
+    CONTINUE_BUTTON = (By.LINK_TEXT, 'Продолжить')
     PASSWORD = (By.CLASS_NAME, 'vkc__TextField__input')
     SUBMIT = (By.CLASS_NAME, 'vkc__Button__title')
 

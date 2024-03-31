@@ -5,5 +5,5 @@
 ### Запуск
 
 ```bash
-pytest Selenium/code/test_login.py --url='https://park.vk.company/'
+pytest Selenium/code/test_park.py --url='https://park.vk.company/'
 ```

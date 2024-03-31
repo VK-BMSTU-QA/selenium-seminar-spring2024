@@ -68,9 +68,9 @@ class LoginPage(BasePage):
         self.click(LoginPageLocators.LOGIN_BUTTON)
         self.click(LoginPageLocators.LOGIN_BUTTON_VK)
         self.find(LoginPageLocators.LOGIN).send_keys(user)
-        self.click(LoginPageLocators.CONTINUE_BUTTON)
+        self.click(LoginPageLocators.CONTINUE_BUTTON, 2)
         self.find(LoginPageLocators.PASSWORD).send_keys(password)
-        self.click(LoginPageLocators.CONTINUE_BUTTON)
+        self.click(LoginPageLocators.CONTINUE_BUTTON, 2)
         self.click(LoginPageLocators.SUBMIT)
         return MainPage(self.driver)
 
