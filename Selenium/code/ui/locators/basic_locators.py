@@ -20,10 +20,3 @@ class MainPageLocators(BasePageLocators):
 
 class EventsPageLocators(BasePageLocators):
     pass
-
-
-class TechnoParkLocators:
-    DIV_LOGIN_LOCATOR = (By.CLASS_NAME, 'nav__button__menu')
-    LOGIN_INPUT_LOCATOR = (By.NAME, 'login')
-    PASSWORD_INPUT_LOCATOR = (By.NAME, 'password')
-    INPUT_BUTTON_IN_LOGIN_LOCATOR = (By.ID, 'popup-login-form-submit')
