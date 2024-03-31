@@ -3,7 +3,7 @@ import time
 import pytest
 from _pytest.fixtures import FixtureRequest
 
-from ui.locators.park_locators import LoginPageLocators, HeaderLocators
+from ui.locators.park_locators import LoginPageLocators, HeaderLocators, SettingsLocators
 from ui.pages.base_page import BasePage
 
 
@@ -40,7 +40,7 @@ class LoginPage(BasePage):
         self.click(LoginPageLocators.LOGIN_LOCATOR)
         self.find(LoginPageLocators.LOGIN).send_keys(user)
         self.find(LoginPageLocators.PASSWORD).send_keys(password)
-        self.click(LoginPageLocators.LOGIN_SUBMIT)
+        self.click(LoginPageLocators.SUBMIT)
         time.sleep(3)
         return MainPage(self.driver)
 
@@ -56,10 +56,20 @@ class MainPage(BasePage):
         self.find(section_locator).click()
         time.sleep(3)
 
+    def update_profile_about(self, new_info: str) -> str:
+        text_area = self.find(SettingsLocators.PROFILE_ABOUT)
+        old_info = text_area.text
+        text_area.clear()
+        text_area.send_keys(new_info)
+        self.find(SettingsLocators.SUBMIT).click()
+        time.sleep(3)
+        return old_info
+
 
 class TestLogin(BaseCase):
     authorize = True
 
+    # @pytest.mark.skip('skip')
     def test_login(self, credentials):
         assert 'Блоги' in self.driver.page_source
         assert 'Люди' in self.driver.page_source
@@ -71,28 +81,40 @@ class TestLogin(BaseCase):
 
 class TestLK(BaseCase):
 
+    # @pytest.mark.skip('skip')
     def test_switch_blogs_to_people(self):
-        self.main_page.go_to_section(HeaderLocators.BLOGS_LOCATOR)
+        self.main_page.go_to_section(HeaderLocators.BLOGS)
         assert 'Все блоги' in self.driver.page_source
         assert 'Прямой эфир' in self.driver.page_source
 
-        self.main_page.go_to_section(HeaderLocators.PEOPLE_LOCATOR)
+        self.main_page.go_to_section(HeaderLocators.PEOPLE)
         assert 'Сообщество проекта' in self.driver.page_source
         assert 'Статистика' in self.driver.page_source
         assert 'Фильтры' in self.driver.page_source
 
+    # @pytest.mark.skip('skip')
     def test_switch_program_to_graduates(self):
-        self.main_page.go_to_section(HeaderLocators.PROGRAM_LOCATOR)
+        self.main_page.go_to_section(HeaderLocators.PROGRAM)
         assert 'Мои учебные программы' in self.driver.page_source
         assert 'Основные программы' in self.driver.page_source
         assert 'Открытые курсы' in self.driver.page_source
         assert 'Архив видео' in self.driver.page_source
 
-        self.main_page.go_to_section(HeaderLocators.GRADUATES_LOCATOR)
+        self.main_page.go_to_section(HeaderLocators.GRADUATES)
         assert 'Наши выпускники' in self.driver.page_source
         assert 'Осень 2023' in self.driver.page_source
         assert 'Весна 2023' in self.driver.page_source
 
-    @pytest.mark.skip('skip')
-    def test_lk2(self):
-        pass
+    # @pytest.mark.skip('skip')
+    def test_change_profile_about(self):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+        assert 'О себе' in self.driver.page_source
+        assert 'Вы успешно отредактировали поле: О себе' not in self.driver.page_source
+
+        old_info = self.main_page.update_profile_about('updated info')
+        assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
+        assert 'updated info' in self.driver.page_source
+
+        self.main_page.update_profile_about(old_info)
+        assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
+        assert old_info in self.driver.page_source
