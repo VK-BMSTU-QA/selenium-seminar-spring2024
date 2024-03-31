@@ -67,6 +67,15 @@ class SettingsPage(BasePage):
           driver.get(self.url)
           super().__init__(driver)
 
+     def update_about_info(self, about_info):
+          about_input = self.find(self.locators.ABOUT_INPUT)
+          original_text = about_input.text
+          about_input.clear()
+          about_input.send_keys(about_info)
+          self.click(self.locators.SUBMIT_EDIT, timeout=5)
+
+          return original_text
+
 
 class TestLogin(BaseCase):
 
@@ -135,19 +144,10 @@ class TestLK(LoggedCase):
     def test_settings_change_about(self, about_info, sign_expected):
         settings_page = SettingsPage(self.driver)
 
-        about_input = settings_page.find(settings_page.locators.ABOUT_INPUT)
-        original_text = about_input.text
-        about_input.clear()
-        about_input.send_keys(about_info)
-        settings_page.click(settings_page.locators.SUBMIT_EDIT, timeout=5)
-
+        original_text = settings_page.update_about_info(about_info)
         assert original_text not in self.driver.page_source
         assert sign_expected in self.driver.page_source
 
-        about_input = settings_page.find(settings_page.locators.ABOUT_INPUT)
-        about_input.clear()
-        about_input.send_keys(original_text)
-        settings_page.click(settings_page.locators.SUBMIT_EDIT, timeout=5)
-
+        settings_page.update_about_info(original_text)
         assert original_text in self.driver.page_source
         assert sign_expected not in self.driver.page_source
