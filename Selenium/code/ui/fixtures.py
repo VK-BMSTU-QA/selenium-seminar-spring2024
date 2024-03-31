@@ -29,7 +29,10 @@ def driver(config):
             desired_capabilities=capabilities
         )
     elif browser == 'chrome':
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        if chromedriver_path != '':
+            driver = webdriver.Chrome(service=Service(executable_path=chromedriver_path))
+        else:
+            driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
     elif browser == 'firefox':
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     else:

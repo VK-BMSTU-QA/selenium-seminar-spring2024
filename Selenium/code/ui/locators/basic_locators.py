@@ -29,6 +29,7 @@ class BaseParkPageLocators:
     LOGIN_SUBMIT_BUTTON = (By.ID, 'popup-login-form-submit')
     LOGO_IMG = (By.CSS_SELECTOR, '#header img')
 
+
 class MainPageParkLocators(BaseParkPageLocators):
     BLOGS_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/blog/"]')
     PEOPLE_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/people/"]')
