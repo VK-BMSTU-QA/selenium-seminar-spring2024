@@ -78,13 +78,6 @@ class LoginPage(BasePage):
 class MainPage(BasePage):
     url = 'https://park.vk.company/feed/'
 
-    def go_to_menu_items(self, first_item_name, second_item_name):
-        self.find((By.LINK_TEXT, first_item_name)).click()
-        time.sleep(2)
-
-        self.find((By.LINK_TEXT, second_item_name)).click()
-        time.sleep(2)
-
 
 class LkPage(BasePage):
     url = 'https://park.vk.company/cabinet/settings/'
