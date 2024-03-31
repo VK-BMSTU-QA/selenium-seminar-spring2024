@@ -8,7 +8,7 @@ class BasePageLocators:
     START_SHELL = (By.ID, 'start-shell')
     PYTHON_CONSOLE = (By.ID, 'hterm:row-nodes')
 
-    LOGIN_BUTTON_LOCATOR = (By.XPATH, '//*[@id="header"]/div/div[2]/a')
+    LOGIN_BUTTON_LOCATOR = (By.LINK_TEXT, 'Войти')
     SUBMIT_LOGIN_BUTTON_LOCATOR = (By.XPATH, '//*[@id="popup-login-form-submit"]')
 
     SUBMIT_PROFILE_EDIT_LOCATOR = (By.NAME, 'submit_profile_edit')
