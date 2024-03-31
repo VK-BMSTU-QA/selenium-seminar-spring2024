@@ -6,6 +6,9 @@ class LoginPage(BasePage):
     url = 'https://park.vk.company/'
     locators = LoginPageLocators()
 
+    def get_error_msg(self):
+        return self.find(self.locators.ERROR_MSG_LOCATOR).text
+
     def login(self, username, password):
         self.click(self.locators.LOGIN_BTN_LOCATOR)
 
@@ -16,4 +19,3 @@ class LoginPage(BasePage):
         self.click(self.locators.LOGIN_SUBMIT_BTN_LOCATOR)
 
         return MainPage(self.driver)
-

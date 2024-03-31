@@ -2,6 +2,7 @@ import pytest
 import time
 from base import BaseCase
 from ui.locators.header_locators import HeaderSections
+from ui.pages.base_page import PageNotOpenedExeption
 
 class TestLogin(BaseCase):
     authorize = False
@@ -11,6 +12,16 @@ class TestLogin(BaseCase):
         self.main_page = self.login_page.login(login, password)
         assert "Лента" in self.driver.title
         assert self.driver.current_url == self.main_page.url
+    
+    def test_negative_login(self):
+        login, password = "definitely_wrong_login", "definitely_wrong_password"
+        try:
+            self.login_page.login(login, password)
+            raise RuntimeError('unexpected successful authentication')
+        except PageNotOpenedExeption:
+            error_msg = self.login_page.get_error_msg()
+            assert len(error_msg) > 0
+            assert error_msg == 'Учётные данные неверны'
 
 
 class TestLK(BaseCase):
