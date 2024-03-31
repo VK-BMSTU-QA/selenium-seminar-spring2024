@@ -1,12 +1,13 @@
 from ui.fixtures import *
 
+
 def pytest_addoption(parser):
     parser.addoption('--browser', default='chrome')
     parser.addoption('--url', default='https://park.vk.company')
     parser.addoption('--debug_log', action='store_true')
     parser.addoption('--selenoid', action='store_true')
     parser.addoption('--vnc', action='store_true')
-    parser.addoption('--chromedriver-path', default='C:\\code\\selenium-seminar-spring2024\\chromedriver.exe')
+    parser.addoption('--chromedriver-path', default='')
 
 
 @pytest.fixture(scope='session')

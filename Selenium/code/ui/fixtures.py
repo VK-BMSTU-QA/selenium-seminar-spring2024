@@ -14,7 +14,6 @@ def driver(config):
     url = config['url']
     selenoid = config['selenoid']
     vnc = config['vnc']
-    chromedriver_path = config['chromedriver_path']
     options = Options()
     if selenoid:
         capabilities = {
