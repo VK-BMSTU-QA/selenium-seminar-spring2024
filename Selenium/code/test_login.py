@@ -8,20 +8,19 @@ from ui.locators import techno_park_locators as tp_locators
 
 class BaseCase:
     @pytest.fixture(scope='function', autouse=True)
-    def setup(self, driver, config, request: FixtureRequest):
+    def setup_base_case(self, driver, config, request: FixtureRequest):
         self.driver = driver
         self.config = config
 
         self.login_page = LoginPage(driver)
 
-class LoggedCase:
+        return self.login_page
+
+@pytest.mark.usefixtures('setup_base_case')
+class LoggedCase(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
-    def setup(self, driver, config, request: FixtureRequest, credentials):
-        self.driver = driver
-        self.config = config
-
-        self.login_page = LoginPage(driver)
-        self.main_page = self.login_page.login(credentials)
+    def setup(self, setup_base_case, credentials):
+        self.main_page = setup_base_case.login(credentials)
 
 class Credentials:
      def __init__(self, login, password):
