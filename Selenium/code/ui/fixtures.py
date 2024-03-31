@@ -14,6 +14,8 @@ def driver(config):
     selenoid = config['selenoid']
     vnc = config['vnc']
     options = Options()
+    options = webdriver.ChromeOptions()
+    options.add_argument("--window-size=1920,1080")
     if selenoid:
         capabilities = {
             'browserName': 'chrome',
