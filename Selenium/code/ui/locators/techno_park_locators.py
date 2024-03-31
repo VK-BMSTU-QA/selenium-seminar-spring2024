@@ -14,3 +14,6 @@ class MainLocators:
     SCHEDULE_LOCATOR = (By.XPATH, '//a[contains(@href,"/schedule/")]')
     CAREER_LOCATOR = (By.XPATH, '//a[contains(@href,"/career/")]')
 
+class SettingsLocators:
+    ABOUT_INPUT_LOCATOR = (By.NAME, 'about')
+    SUBMIT_EDIT_LOCATOR = (By.NAME, 'submit_profile_edit')
