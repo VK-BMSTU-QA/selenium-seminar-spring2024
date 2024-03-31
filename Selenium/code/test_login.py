@@ -111,6 +111,19 @@ class TestLogin(BaseCase):
         assert 'Мои аккаунты' in self.driver.page_source
 
 
+class TestMainPage(BaseCase):
+    def test_main_page(self):
+        blogs = self.main_page.find((By.LINK_TEXT, 'Блоги'))
+        blogs.click()
+        time.sleep(2)
+
+        people = self.main_page.find((By.LINK_TEXT, 'Люди'))
+        people.click()
+        time.sleep(2)
+
+        assert 1 == 1
+
+
 class TestLK(BaseCase):
 
     # @pytest.mark.skip('skip')
