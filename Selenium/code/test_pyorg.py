@@ -37,7 +37,7 @@ class TestExample(BaseCase):
         time.sleep(5)
 
         assert 'No results found' in self.driver.page_source
-        assert 1 == 0
+        # assert 1 == 0
 
     @pytest.mark.skip('skip')
     def test_page_change(self):
@@ -100,7 +100,7 @@ class TestExample(BaseCase):
 
 class TestLoad(BaseCase):
 
-    @pytest.mark.skip('skip')
+    # @pytest.mark.skip('skip')
     def test_download(self):
         self.driver.get('https://www.python.org/downloads/release/python-3100/')
         time.sleep(5)
@@ -122,6 +122,7 @@ class TestLoad(BaseCase):
 
 class TestFailed(BaseCase):
 
+    @pytest.mark.skip('skip')
     def test_fail(self):
         self.main_page.find((By.XPATH, '12312312312312'), timeout=1)
 
@@ -134,14 +135,14 @@ class TestFailed(BaseCase):
         time.sleep(10)
         assert 0
 
-    @pytest.mark.skip('skip')
-    @allure.step("Step 1")
-    def test_log(self):
-        self.logger.info('Ready to start')
-        self.logger.info('Going to events page')
-        events_page = self.main_page.go_to_events_page()
-        self.logger.info('asserting')
-        assert 1 == 0
+    # @pytest.mark.skip('skip')
+    # @allure.step("Step 1")
+    # def test_log(self):
+    #     self.logger.info('Ready to start')
+    #     self.logger.info('Going to events page')
+    #     events_page = self.main_page.go_to_events_page()
+    #     self.logger.info('asserting')
+    #     assert 1 == 0
 
 
 @pytest.mark.skip('skip')

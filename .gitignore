@@ -1,0 +1,7 @@
+Selenium/code/chromedriver
+__pycache__
+.coverage
+.pytest_cache
+.venv
+.DS_Store
+.idea

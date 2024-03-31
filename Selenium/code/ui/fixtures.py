@@ -27,7 +27,7 @@ def driver(config):
             desired_capabilities=capabilities
         )
     elif browser == 'chrome':
-        driver = webdriver.Firefox(executable_path='/Users/konstantin.ermakov/Downloads/geckodriver')
+        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
     elif browser == 'firefox':
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     else:
