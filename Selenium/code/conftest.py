@@ -1,6 +1,5 @@
 from ui.fixtures import *
 
-
 def pytest_addoption(parser):
     parser.addoption('--browser', default='chrome')
     parser.addoption('--url', default='https://park.vk.company')
