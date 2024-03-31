@@ -10,9 +10,14 @@ class MainPage(BasePage):
 
     locators = basic_locators.MainPageLocators()
 
-    @allure.step("Step 2")
+    # @allure.step("Step 2")
     def go_to_events_page(self):
         events_button = self.find(self.locators.EVENTS)
         # self.click(events_button)
+        self.find()
         self.click((By.ID, 'events'))
         return EventsPage(self.driver)
+
+    def go_to_events_handler(self, link):
+        events_link = self.find(link)
+        self.click(events_link)

@@ -5,7 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
-
+from ui.pages.settings_page import SettingsPage
 
 @pytest.fixture()
 def driver(config):
@@ -14,6 +14,8 @@ def driver(config):
     selenoid = config['selenoid']
     vnc = config['vnc']
     options = Options()
+    options = webdriver.ChromeOptions()
+    options.add_argument("--window-size=1920,1080")
     if selenoid:
         capabilities = {
             'browserName': 'chrome',
@@ -24,12 +26,14 @@ def driver(config):
         driver = webdriver.Remote(
             'http://127.0.0.1:4444/wd/hub',
             options=options,
+            
             desired_capabilities=capabilities
         )
     elif browser == 'chrome':
-        driver = webdriver.Firefox(executable_path='/Users/konstantin.ermakov/Downloads/geckodriver')
+        driver = webdriver.Firefox()
+        
     elif browser == 'firefox':
-        driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+        driver = webdriver.Firefox()
     else:
         raise RuntimeError(f'Unsupported browser: "{browser}"')
     driver.get(url)
@@ -40,9 +44,9 @@ def driver(config):
 
 def get_driver(browser_name):
     if browser_name == 'chrome':
-        browser = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        browser = webdriver.Chrome()
     elif browser_name == 'firefox':
-        browser = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+        driver = webdriver.Firefox()
     else:
         raise RuntimeError(f'Unsupported browser: "{browser_name}"')
     browser.maximize_window()
@@ -66,3 +70,7 @@ def base_page(driver):
 @pytest.fixture
 def main_page(driver):
     return MainPage(driver=driver)
+
+@pytest.fixture
+def settings_page(driver):
+    return SettingsPage(driver=driver)

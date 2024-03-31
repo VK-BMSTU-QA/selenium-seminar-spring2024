@@ -4,6 +4,7 @@ import pytest
 from _pytest.fixtures import FixtureRequest
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
+from ui.pages.main_page import SettingsPage
 
 CLICK_RETRY = 3
 
@@ -23,10 +24,11 @@ class BaseCase:
         self.driver.switch_to.window(current)
 
     @pytest.fixture(scope='function', autouse=True)
-    def setup(self, driver, config, logger, request: FixtureRequest):
+    def setup(self, driver, config, request: FixtureRequest):
         self.driver = driver
         self.config = config
-        self.logger = logger
+        #self.logger = logger
 
         self.base_page: BasePage = (request.getfixturevalue('base_page'))
         self.main_page: MainPage = (request.getfixturevalue('main_page'))
+        self.settings_page: SettingsPage = (request.getfixturevalue('settings_page'))
