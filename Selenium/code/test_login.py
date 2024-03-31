@@ -13,8 +13,8 @@ class BaseCase:
         self.config = config
 
         self.login_page = LoginPage(driver)
-        if self.authorize:
-            print('Do something for login')
+        # if self.authorize:
+        #     print('Do something for login')
 
 
 @pytest.fixture(scope='session')
@@ -42,16 +42,16 @@ class TestLogin(BaseCase):
     authorize = True
 
     def test_login(self, credentials):
-        pass
+        import ipdb; ipdb.set_trace()
 
 
-class TestLK(BaseCase):
+# class TestLK(BaseCase):
 
-    def test_lk1(self):
-        pass
+#     def test_lk1(self):
+#         pass
 
-    def test_lk2(self):
-        pass
+#     def test_lk2(self):
+#         pass
 
-    def test_lk3(self):
-        pass
+#     def test_lk3(self):
+#         pass
