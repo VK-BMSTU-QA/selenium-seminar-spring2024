@@ -1,8 +1,10 @@
 import json
+import time
 
 import pytest
 from _pytest.fixtures import FixtureRequest
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
@@ -17,12 +19,14 @@ class BaseCase:
     def setup(self, driver, config, request: FixtureRequest):
         self.driver = driver
         self.config = config
+
         self.login_page = LoginPage(driver)
+        self.lk_page = LKPage(driver)
 
         if self.authorize:
             print('Do something for login')
             creds = request.getfixturevalue('credentials')
-            self.login_page.login(**creds)
+            self.main_page = self.login_page.login(**creds)
 
 
 @pytest.fixture(scope='session')
@@ -58,13 +62,13 @@ class BasePage(object):
 
 class LoginPage(BasePage):
     url = 'https://park.vk.company/'
-    locators = locators.LoginPageLocators()
+    login_locators = locators.LoginPageLocators()
 
     def login(self, user, password):
-        self.click(self.locators.LOGIN_BUTTON)
-        self.find(self.locators.LOGIN).send_keys(user)
-        self.find(self.locators.PASSWORD).send_keys(password)
-        self.click(self.locators.SUBMIT)
+        self.click(self.login_locators.LOGIN_BUTTON)
+        self.find(self.login_locators.LOGIN).send_keys(user)
+        self.find(self.login_locators.PASSWORD).send_keys(password)
+        self.click(self.login_locators.SUBMIT)
         return MainPage(self.driver)
 
 
@@ -72,19 +76,42 @@ class MainPage(BasePage):
     url = 'https://park.vk.company/feed/'
 
 
+class LKPage(BasePage):
+    url = 'https://park.vk.company/cabinet/settings/'
+    lk_page_locators = locators.LKPageLocators()
+
+    def update_info(self, info):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+        time.sleep(2)
+
+        about = self.find(self.lk_page_locators.ABOUT)
+        about.clear()
+        about.send_keys(info)
+        self.click(self.lk_page_locators.SUBMIT)
+
+
 class TestLogin(BaseCase):
     authorize = True
 
     def test_login(self, credentials):
-        print('test login')
-        assert 1 == 1
+        self.main_page.click((By.ID, 'dropdown-user-trigger'))
+        time.sleep(2)
+        assert 'Программа' in self.driver.page_source
+        assert 'Успеваемость' in self.driver.page_source
+        assert 'Мои аккаунты' in self.driver.page_source
 
 
 class TestLK(BaseCase):
 
-    @pytest.mark.skip('skip')
+    # @pytest.mark.skip('skip')
     def test_lk1(self):
-        pass
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+
+        info = 'selenium seminar'
+        self.lk_page.update_info(info)
+        time.sleep(2)
+        assert info in self.driver.page_source
+        assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
 
     @pytest.mark.skip('skip')
     def test_lk2(self):
