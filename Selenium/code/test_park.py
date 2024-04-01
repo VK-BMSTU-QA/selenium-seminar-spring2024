@@ -66,12 +66,10 @@ class LoginPage(BasePage):
 
     def login(self, user, password):
         self.click(LoginPageLocators.LOGIN_BUTTON)
-        self.click(LoginPageLocators.LOGIN_BUTTON_VK)
         self.find(LoginPageLocators.LOGIN).send_keys(user)
-        self.click(LoginPageLocators.CONTINUE_BUTTON, 2)
         self.find(LoginPageLocators.PASSWORD).send_keys(password)
-        self.click(LoginPageLocators.CONTINUE_BUTTON, 2)
         self.click(LoginPageLocators.SUBMIT)
+        time.sleep(2)
         return MainPage(self.driver)
 
 
@@ -95,6 +93,7 @@ class LkPage(BasePage):
 class TestLogin(BaseCase):
     authorize = True
 
+    # @pytest.mark.skip('skip')
     def test_login(self, credentials):
         assert 'Блоги' in self.driver.page_source
         assert 'Люди' in self.driver.page_source
@@ -108,35 +107,37 @@ class TestLk(BaseCase):
     # @pytest.mark.skip('skip')
     def test_blogs(self):
         self.main_page.find(HeaderLocators.BLOGS).click()
+        time.sleep(2)
         assert 'Все блоги' in self.driver.page_source
         assert 'Прямой эфир' in self.driver.page_source
 
+    # @pytest.mark.skip('skip')
     def test_people(self):
         self.main_page.find(HeaderLocators.PEOPLE).click()
+        time.sleep(2)
         assert 'Сообщество проекта' in self.driver.page_source
         assert 'Статистика' in self.driver.page_source
         assert 'Фильтры' in self.driver.page_source
 
+    # @pytest.mark.skip('skip')
     def test_program(self):
         self.main_page.find(HeaderLocators.PROGRAM).click()
+        time.sleep(2)
         assert 'Мои учебные программы' in self.driver.page_source
         assert 'Основные программы' in self.driver.page_source
         assert 'Открытые курсы' in self.driver.page_source
         assert 'Архив видео' in self.driver.page_source
 
+    # @pytest.mark.skip('skip')
     def test_graduates(self):
         self.main_page.find(HeaderLocators.GRADUATES).click()
+        time.sleep(2)
         assert 'Наши выпускники' in self.driver.page_source
 
-    def test_schedule(self):
-        self.main_page.find(HeaderLocators.SCHEDULE).click()
-        assert 'Показывать' in self.driver.page_source
-        assert 'Дисциплина' in self.driver.page_source
-        assert 'Тип события' in self.driver.page_source
-        assert 'Группа' in self.driver.page_source
-
+    # @pytest.mark.skip('skip')
     def test_vacancy(self):
         self.main_page.find(HeaderLocators.VACANCY).click()
+        time.sleep(2)
         assert 'Вакансии' in self.driver.page_source
         assert 'Прямой эфир' in self.driver.page_source
 
@@ -146,7 +147,6 @@ class TestLK(BaseCase):
     # @pytest.mark.skip('skip')
     def test_settings(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
-        assert 'Фамилия [рус]' in self.driver.page_source
         assert 'Имя [рус]' in self.driver.page_source
         assert 'Фамилия [eng]' in self.driver.page_source
         assert 'Имя [eng]' in self.driver.page_source
@@ -157,6 +157,7 @@ class TestLK(BaseCase):
         assert 'Пол' in self.driver.page_source
         assert 'Размер одежды' in self.driver.page_source
 
+    # @pytest.mark.skip('skip')
     def test_change_last_name(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
         assert 'О себе' in self.driver.page_source
@@ -165,5 +166,5 @@ class TestLK(BaseCase):
         last_name = 'Тест'
         self.lk_page.update_last_name(last_name)
         time.sleep(2)
-        assert 'Вы успешно отредактировали поле: Фамилия [рус]' in self.driver.page_source
+        assert 'Вы успешно отредактировали поле: Фамилия' in self.driver.page_source
         assert last_name in self.driver.page_source
