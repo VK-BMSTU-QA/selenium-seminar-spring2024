@@ -67,7 +67,7 @@ class LoginPage(BaseParkPage):
 
 
 class MainPage(BaseParkPage):
-    locators = basic_locators.MainPageParkLocators()
+    locators = basic_locators.MainParkPageLocators()
     url = 'https://park.vk.company/feed/'
 
 
@@ -98,19 +98,19 @@ class TestRedirect(BaseCase):
         'pages',
         [
             [
-                PageRedirectData(basic_locators.MainPageParkLocators.BLOGS_BUTTON,
-                                 basic_locators.MainPageParkLocators.BLOGS_CONTENT_TITLE,
+                PageRedirectData(basic_locators.MainParkPageLocators.BLOGS_BUTTON,
+                                 basic_locators.MainParkPageLocators.BLOGS_CONTENT_TITLE,
                                  'Все блоги'),
-                PageRedirectData(basic_locators.MainPageParkLocators.PEOPLE_BUTTON,
-                                 basic_locators.MainPageParkLocators.PEOPLE_CONTENT_TITLE,
+                PageRedirectData(basic_locators.MainParkPageLocators.PEOPLE_BUTTON,
+                                 basic_locators.MainParkPageLocators.PEOPLE_CONTENT_TITLE,
                                  'Сообщество проекта'),
             ],
             [
-                PageRedirectData(basic_locators.MainPageParkLocators.PROGRAM_BUTTON,
-                                 basic_locators.MainPageParkLocators.MAIN_PROGRAMS_TITLE,
+                PageRedirectData(basic_locators.MainParkPageLocators.PROGRAM_BUTTON,
+                                 basic_locators.MainParkPageLocators.MAIN_PROGRAMS_TITLE,
                                  'Основные программы'),
-                PageRedirectData(basic_locators.MainPageParkLocators.ALUMNI_BUTTON,
-                                 basic_locators.MainPageParkLocators.ALUMNI_CONTENT_TITLE,
+                PageRedirectData(basic_locators.MainParkPageLocators.ALUMNI_BUTTON,
+                                 basic_locators.MainParkPageLocators.ALUMNI_CONTENT_TITLE,
                                  'Наши выпускники'),
             ]
         ]

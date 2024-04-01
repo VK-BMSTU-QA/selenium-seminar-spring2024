@@ -30,7 +30,7 @@ class BaseParkPageLocators:
     LOGO_IMG = (By.CSS_SELECTOR, '#header img')
 
 
-class MainPageParkLocators(BaseParkPageLocators):
+class MainParkPageLocators(BaseParkPageLocators):
     BLOGS_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/blog/"]')
     PEOPLE_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/people/"]')
     PROGRAM_BUTTON = (By.XPATH, '//*[@id="header"]//a[@href="/curriculum/program/"]')
