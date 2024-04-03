@@ -1,0 +1,6 @@
+chromedriver.exe
+venv
+**/*.log
+**/.pytest_cache
+**/__pycache__
+**/.idea

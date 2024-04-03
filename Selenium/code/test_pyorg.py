@@ -134,6 +134,7 @@ class TestFailed(BaseCase):
         time.sleep(10)
         assert 0
 
+
     @pytest.mark.skip('skip')
     @allure.step("Step 1")
     def test_log(self):

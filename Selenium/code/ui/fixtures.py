@@ -1,6 +1,7 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from ui.pages.base_page import BasePage
@@ -13,6 +14,7 @@ def driver(config):
     url = config['url']
     selenoid = config['selenoid']
     vnc = config['vnc']
+    chromedriver_path = config['chromedriver_path']
     options = Options()
     if selenoid:
         capabilities = {
@@ -27,7 +29,10 @@ def driver(config):
             desired_capabilities=capabilities
         )
     elif browser == 'chrome':
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        if chromedriver_path != '':
+            driver = webdriver.Chrome(service=Service(executable_path=chromedriver_path))
+        else:
+            driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
     elif browser == 'firefox':
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     else:
