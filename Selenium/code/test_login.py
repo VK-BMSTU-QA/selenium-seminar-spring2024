@@ -63,6 +63,3 @@ class TestSettings(BaseCase):
         assert settings_page.get_about_value() == new_information
 
         settings_page.update_about_input(old_value)
-
-
-
