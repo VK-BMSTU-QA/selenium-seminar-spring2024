@@ -28,4 +28,3 @@ class HeaderLocators():
             return self.GRADUATES_BTN_LOCATOR
         else:
             raise TypeError('unknown section')
-    
