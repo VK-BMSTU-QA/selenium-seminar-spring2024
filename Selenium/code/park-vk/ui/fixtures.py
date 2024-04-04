@@ -1,9 +1,12 @@
 import pytest
+
+from os import environ
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
-from ui.pages.base_page import BasePage
+from ui.pages.login_page import LoginPage
 from ui.pages.main_page import MainPage
 
 
@@ -49,20 +52,6 @@ def get_driver(browser_name):
     return browser
 
 
-@pytest.fixture(scope='session', params=['chrome', 'firefox'])
-def all_drivers(config, request):
-    url = config['url']
-    browser = get_driver(request.param)
-    browser.get(url)
-    yield browser
-    browser.quit()
-
-
-@pytest.fixture
-def base_page(driver):
-    return BasePage(driver=driver)
-
-
-@pytest.fixture
-def main_page(driver):
-    return MainPage(driver=driver)
+@pytest.fixture(scope='session')
+def credentials():
+    return (environ.get("PARK_VK_LOGIN", "Test"), environ.get("PARK_VK_PASSWORD", "Test"))
