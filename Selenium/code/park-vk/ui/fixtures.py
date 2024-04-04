@@ -55,8 +55,3 @@ def get_driver(browser_name):
 @pytest.fixture(scope='session')
 def credentials():
     return (environ.get("PARK_VK_LOGIN", "Test"), environ.get("PARK_VK_PASSWORD", "Test"))
-
-
-@pytest.fixture(scope='session')
-def cookies(credentials, login_page):
-    pass
