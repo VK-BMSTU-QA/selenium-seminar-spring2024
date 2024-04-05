@@ -40,6 +40,7 @@ class LKPageLocators:
     ABOUT = (By.ID, "profile_about")
     SUBMIT = (By.NAME, "submit_profile_edit")
     LAST_NAME_EN = (By.ID, 'id_last_name_en')
+    SUCCESS_MSG_LOCATOR = (By.CSS_SELECTOR, '.profile_settings_success-msg')
 
 class SettingsPageLocators:
     header = HeaderLocators()

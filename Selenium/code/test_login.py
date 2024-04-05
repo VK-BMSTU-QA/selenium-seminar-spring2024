@@ -198,6 +198,7 @@ class TestLK(BaseCase):
         about.clear()
         about.send_keys(info)
         self.click(self.lk_page_locators.SUBMIT)
+        assert "О себе" in self.settings_page.get_success_msg()
 
     def update_last_name(self, last_name):
         self.driver.get('https://park.vk.company/cabinet/settings/')
@@ -207,3 +208,4 @@ class TestLK(BaseCase):
         last_name_en.clear()
         last_name_en.send_keys(last_name)
         self.click(self.lk_page_locators.SUBMIT)
+        assert "Фамилия [eng]" in self.settings_page.get_success_msg()
