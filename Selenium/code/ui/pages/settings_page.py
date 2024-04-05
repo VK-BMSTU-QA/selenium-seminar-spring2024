@@ -8,4 +8,4 @@ class SettingsPage(BasePage):
         about_textarea.clear()
         about_textarea.send_keys(about)
         self.click(SettingsLocators.SAVE_BTN_LOCATOR)
-        
+

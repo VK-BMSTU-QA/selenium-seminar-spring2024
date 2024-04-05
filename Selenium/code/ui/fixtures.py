@@ -74,3 +74,4 @@ def main_page(driver):
 @pytest.fixture
 def settings_page(driver):
     return SettingsPage(driver=driver)
+
