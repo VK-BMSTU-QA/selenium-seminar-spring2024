@@ -97,7 +97,7 @@ class TestSwith(BaseCase):
         ]
     )   
 
-    @pytest.mark.skip('skip')
+#    @pytest.mark.skip('skip')
     def test_switch(self, swch1, swch2):
         self.main_page.click(swch1)
         swch1_elem = self.main_page.find(swch1)
@@ -126,4 +126,3 @@ class TestUpdate(BaseCase):
         self.settings_page.update_about(old_info)
         assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
         assert old_info in self.driver.page_source
-

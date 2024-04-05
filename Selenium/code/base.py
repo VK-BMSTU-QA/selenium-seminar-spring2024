@@ -32,3 +32,4 @@ class BaseCase:
         self.base_page: BasePage = (request.getfixturevalue('base_page'))
         self.main_page: MainPage = (request.getfixturevalue('main_page'))
         self.settings_page: SettingsPage = (request.getfixturevalue('settings_page'))
+
