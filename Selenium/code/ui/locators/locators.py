@@ -11,3 +11,5 @@ class LoginPageLocators:
 class LKPageLocators:
     ABOUT = (By.ID, "profile_about")
     SUBMIT = (By.NAME, "submit_profile_edit")
+    LAST_NAME = (By.ID, 'id_last_name')
+    FIRST_NAME = (By.ID, 'id_first_name')

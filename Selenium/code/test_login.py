@@ -86,9 +86,55 @@ class LKPage(BasePage):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
         about = self.find(self.lk_page_locators.ABOUT)
+        value = about.get_attribute("value")
+
         about.clear()
         about.send_keys(info)
         self.click(self.lk_page_locators.SUBMIT)
+
+        about = self.find(self.lk_page_locators.ABOUT)
+        
+        about.clear()
+        about.send_keys(value)
+        self.click(self.lk_page_locators.SUBMIT)
+
+        assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
+
+    def update_first_name(self, first_name):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+
+        first_name_field = self.find(self.lk_page_locators.FIRST_NAME)
+        value = first_name_field.get_attribute("value")
+
+        first_name_field.clear()
+        first_name_field.send_keys(first_name)
+        self.click(self.lk_page_locators.SUBMIT)
+
+        first_name_field = self.find(self.lk_page_locators.FIRST_NAME)
+
+        first_name_field.clear()
+        first_name_field.send_keys(value)
+        self.click(self.lk_page_locators.SUBMIT)
+
+        return 'Вы успешно отредактировали свое имя' in self.driver.page_source
+
+    def update_last_name(self, last_name):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+
+        last_name_field = self.find(self.lk_page_locators.LAST_NAME)
+        value = last_name_field.get_attribute("value")
+
+        last_name_field.clear()
+        last_name_field.send_keys(last_name)
+        self.click(self.lk_page_locators.SUBMIT)
+
+        last_name_field = self.find(self.lk_page_locators.LAST_NAME)
+
+        last_name_field.clear()
+        last_name_field.send_keys(value)
+        self.click(self.lk_page_locators.SUBMIT)
+
+        return 'Вы успешно отредактировали свою фамилию' in self.driver.page_source
 
 
 class TestLogin(BaseCase):
@@ -106,10 +152,20 @@ class TestMainPage(BaseCase):
 
 
 class TestLK(BaseCase):
-    def test_lk1(self):
+    def test_updating_first_name(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')
 
-        info = 'лю блю гироскопы, гироскопы это класс'
+        first_name = 'Гироскоп'
+        self.lk_page.update_first_name(first_name)
+
+    def test_updating_last_name(self):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+
+        last_name = 'Гироскопыч'
+        self.lk_page.update_last_name(last_name)
+        
+    def test_updating_info(self):
+        self.driver.get('https://park.vk.company/cabinet/settings/')
+
+        info = 'люблю гироскопы'
         self.lk_page.update_info(info)
-        assert info in self.driver.page_source
-        assert 'Вы успешно отредактировали поле: О себе' in self.driver.page_source
