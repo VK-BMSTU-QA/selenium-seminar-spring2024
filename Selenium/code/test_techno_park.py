@@ -27,7 +27,7 @@ class TestLogin(BaseCase):
     def test_login(self, credentials):
         main_page = self.login_page.login(credentials)
         assert isinstance(main_page, MainPage)
-        assert "Прямой эфир" in self.driver.page_source
+        assert "Образовательный центр VK в МГТУ" in self.driver.page_source
 
 class TestLK(LoggedCase):
     @pytest.mark.parametrize(
