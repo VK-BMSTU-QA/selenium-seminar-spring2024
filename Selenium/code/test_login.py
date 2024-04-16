@@ -11,12 +11,6 @@ from ui.locators.park_locators import (
 from ui.pages.base_page import BasePage
 
 
-@pytest.fixture(scope='session')
-def credentials():
-    with open('./Selenium/code/files/userdata') as file:
-        return json.load(file)
-
-
 class BaseCase:
     @pytest.fixture(scope='function', autouse=True)
     def setup(self, driver, config, request: FixtureRequest):
@@ -32,8 +26,10 @@ class BaseCase:
 
 class LogedCase(BaseCase):
     def login_setup(self, request):
-        credentials = request.getfixturevalue('credentials')
-        self.main_page = self.login_page.login(**credentials)
+        self.main_page = self.login_page.login(
+            request.config.getoption('--login'),
+            request.config.getoption('--password'),
+        )
 
 
 class LoginPage(BasePage):
@@ -76,8 +72,11 @@ class MainPage(BasePage):
 class TestLogin(BaseCase):
     authorize = True
 
-    def test_login(self, credentials):
-        main_page = self.login_page.login(**credentials)
+    def test_login(self, request):
+        main_page = self.login_page.login(
+            request.config.getoption('--login'),
+            request.config.getoption('--password'),
+        )
         assert 'Блоги' in self.driver.page_source
         assert 'Люди' in self.driver.page_source
         assert 'Программа' in self.driver.page_source
@@ -91,9 +90,14 @@ class TestLK(LogedCase):
         'locator_from,expected_from,locator_to,expected_to',
         [
             pytest.param(
-                HeaderLocators.BLOGS, ['Все блоги', 'Прямой эфир'],
+                HeaderLocators.BLOGS, [
+                    'Все блоги',
+                    'Прямой эфир',
+                ],
                 HeaderLocators.PEOPLE, [
-                    'Сообщество проекта', 'Статистика', 'Фильтры'
+                    'Сообщество проекта',
+                    'Статистика',
+                    'Фильтры',
                 ],
             ),
             pytest.param(
@@ -119,12 +123,14 @@ class TestLK(LogedCase):
         expected_to,
     ):
         self.main_page.go_to_section(locator_from)
-        for item in expected_from:
-            assert item in self.driver.page_source
+        assert all(
+            map(lambda item: item in self.driver.page_source, expected_from),
+        )
 
         self.main_page.go_to_section(locator_to)
-        for item in expected_to:
-            assert item in self.driver.page_source
+        assert all(
+            map(lambda item: item in self.driver.page_source, expected_to),
+        )
 
     def test_change_profile_about(self):
         self.driver.get('https://park.vk.company/cabinet/settings/')

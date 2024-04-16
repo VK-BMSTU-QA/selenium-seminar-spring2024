@@ -1,20 +1,17 @@
 # selenium-seminar-spring2024
 
-## Credentials
+## Установка зависимостей
 
-Для использования данных для входа в личный кабинет, в файл `./Selenium/code/files/userdata` добавь их в следующем формате:
+Для установки всех необходимых зависимостей используй команду:
 
-```json
-{
-    "user": "your_login",
-    "password": "your_password"
-}
+```bash
+pip install -r requirements.txt
 ```
 
 ## Запуск
 
-Для запуска тестов, используй:
+Для запуска тестов на портал, используй команду:
 
 ```bash
-make test-park
+pytest Selenium/code/test_login.py --url='https://park.vk.company/' --login="your_login" --password="your_password"
 ```

@@ -7,6 +7,8 @@ def pytest_addoption(parser):
     parser.addoption('--debug_log', action='store_true')
     parser.addoption('--selenoid', action='store_true')
     parser.addoption('--vnc', action='store_true')
+    parser.addoption('--login')
+    parser.addoption('--password')
 
 
 @pytest.fixture(scope='session')
