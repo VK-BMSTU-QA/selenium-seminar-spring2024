@@ -3,8 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.chrome.service import Service
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
+from utils.credentials import Credentials
 
 
 @pytest.fixture()
@@ -16,8 +18,8 @@ def driver(config):
     options = Options()
     if selenoid:
         capabilities = {
-            'browserName': 'chrome',
-            'version': '118.0',
+            'browserName': 'firefox',
+            'version': '104.0',
         }
         if vnc:
             capabilities['enableVNC'] = True
@@ -27,7 +29,9 @@ def driver(config):
             desired_capabilities=capabilities
         )
     elif browser == 'chrome':
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        service = Service(executable_path=ChromeDriverManager().install())
+        options = webdriver.ChromeOptions()
+        driver = webdriver.Chrome(service=service, options=options)
     elif browser == 'firefox':
         driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
     else:
@@ -66,3 +70,10 @@ def base_page(driver):
 @pytest.fixture
 def main_page(driver):
     return MainPage(driver=driver)
+
+@pytest.fixture(scope='session')
+def credentials(request):
+        login = request.config.getoption('--login')
+        password = request.config.getoption('--password')
+        
+        return Credentials(login, password)
