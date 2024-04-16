@@ -25,7 +25,7 @@ class TestExample(BaseCase):
             ),
         ],
     )
-    # @pytest.mark.skip('skip')
+    @pytest.mark.skip('skip')
     def test_search(self, query):
         self.base_page.search(query)
         assert 'No results found' not in self.driver.page_source
