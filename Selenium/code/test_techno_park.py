@@ -1,10 +1,10 @@
 import pytest
-import time
 from _pytest.fixtures import FixtureRequest
 
-from ui.pages.base_page import BasePage
 from ui.locators import techno_park_locators as tp_locators
-
+from ui.pages.main_page_techno_park import MainPage
+from ui.pages.login_page_techno_park import LoginPage
+from ui.pages.settings_page_techno_park import SettingsPage
 
 class BaseCase:
     @pytest.fixture(scope='function', autouse=True)
@@ -21,61 +21,6 @@ class LoggedCase(BaseCase):
     @pytest.fixture(scope='function', autouse=True)
     def setup(self, setup_base_case, credentials):
         self.main_page = setup_base_case.login(credentials)
-
-class Credentials:
-     def __init__(self, login, password):
-          self.login = login
-          self.password = password
-
-@pytest.fixture(scope='session')
-def credentials(request):
-        login = request.config.getoption('--login')
-        password = request.config.getoption('--password')
-        
-        return Credentials(login, password)
-
-class LoginPage(BasePage):
-    url = 'https://park.vk.company/'
-    locators = tp_locators.LoginLocators()
-    
-    def login(self, credentials: Credentials):
-        self.click(self.locators.LOGIN_BUTTON, timeout=5)
-
-        login_input = self.find(self.locators.LOGIN_INPUT, timeout=5)
-        login_input.clear()
-        login_input.send_keys(credentials.login)
-
-        password_input = self.find(self.locators.PASSWORD_INPUT, timeout=5)
-        password_input.clear()
-        password_input.send_keys(credentials.password)
-
-        self.click(self.locators.SUBMIT_LOGIN_BUTTON, timeout=5)
-
-        self.mainPage = MainPage(self.driver)
-
-        return self.mainPage
-
-
-class MainPage(BasePage):
-    url = 'https://park.vk.company/feed/'
-
-class SettingsPage(BasePage):
-     url = 'https://park.vk.company/cabinet/settings/'
-     locators = tp_locators.SettingsLocators
-
-     def __init__(self, driver):
-          driver.get(self.url)
-          super().__init__(driver)
-
-     def update_about_info(self, about_info):
-          about_input = self.find(self.locators.ABOUT_INPUT)
-          original_text = about_input.text
-          about_input.clear()
-          about_input.send_keys(about_info)
-          self.click(self.locators.SUBMIT_EDIT, timeout=5)
-
-          return original_text
-
 
 class TestLogin(BaseCase):
 

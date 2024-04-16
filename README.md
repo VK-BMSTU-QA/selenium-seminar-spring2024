@@ -4,7 +4,7 @@
 тг для связи - https://t.me/Vilin0
 
 ### Установка зависимостей
-```pip install -r requirements.txt```
+```pip install -r Selenium/code/requirements.txt```
 
 ### Запуск
- ```pytest test_login.py --url="https://park.vk.company" --login="your_login" --password="your_password"```
+ ```pytest Selenium/code/test_techno_park.py --url="https://park.vk.company" --login="your_login" --password="your_password"```

@@ -6,6 +6,7 @@ from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.chrome.service import Service
 from ui.pages.base_page import BasePage
 from ui.pages.main_page import MainPage
+from utils.credentials import Credentials
 
 
 @pytest.fixture()
@@ -69,3 +70,10 @@ def base_page(driver):
 @pytest.fixture
 def main_page(driver):
     return MainPage(driver=driver)
+
+@pytest.fixture(scope='session')
+def credentials(request):
+        login = request.config.getoption('--login')
+        password = request.config.getoption('--password')
+        
+        return Credentials(login, password)
