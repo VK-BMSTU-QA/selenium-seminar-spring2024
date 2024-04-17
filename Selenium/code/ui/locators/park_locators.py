@@ -9,6 +9,7 @@ class LoginPageLocators:
 
 
 class HeaderLocators:
+    HEADER = (By.ID, 'header')
     BLOGS = (By.LINK_TEXT, 'Блоги')
     PEOPLE = (By.LINK_TEXT, 'Люди')
     PROGRAM = (By.LINK_TEXT, 'Программа')
@@ -20,3 +21,5 @@ class HeaderLocators:
 class SettingsLocators:
     SUBMIT = (By.NAME, "submit_profile_edit")
     LAST_NAME = (By.ID, 'id_last_name')
+    DROPDOWN = (By.XPATH, '//*[@id="dropdown-user-trigger"]/i')
+    SETTINGS = (By.XPATH, '//*[@id="dropdown-user-menu"]/li[6]')
